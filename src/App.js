@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import CardList from './CardList';
-import { robots } from './robots.js';
 import SearchBox from './SearchBox'; 
 
 
@@ -10,13 +9,23 @@ class App extends Component {
    	        super();
 
           	this.state={
-					robots:robots,
+					robots:[],
 					searchfield:''
 }
 
           }
 
-onSearchChange=(event)=>{
+componentDidMount(){
+
+	fetch('https://jsonplaceholder.typicode.com/users')
+	.then(response=>response.json())
+	.then(users=>{this.setState({robots:users})})
+
+}
+
+
+
+    onSearchChange=(event)=>{
 	this.setState({searchfield:event.target.value})
 		
 }
